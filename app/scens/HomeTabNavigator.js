@@ -60,7 +60,7 @@ const Tab = TabNavigator(
             labelStyle: {fontSize: 12}, //label的样式
             style: {paddingBottom:2},  //tabbar的样式
             iconStyle: {height: 30}   //安卓,
-        },
+        }
     }
 );
 export default Tab;

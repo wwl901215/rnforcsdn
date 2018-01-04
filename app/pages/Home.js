@@ -34,6 +34,9 @@ export default class Home extends BasePage {
                 <Button title="go to homesecondepage" onPress={()=>{
                     this.props.navigation.navigate('HomeSecondePage')
                 }}/>
+                <Button title="打开侧滑菜单" onPress={()=>{
+                    this.props.navigation.navigate('DrawerOpen')
+                }}/>
             </View>
         );
     }
