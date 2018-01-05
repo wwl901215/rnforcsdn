@@ -12,7 +12,11 @@ import {
 import {StackNavigator} from 'react-navigation';
 
 import HomeSecondePage from '../pages/HomeSecondePage';
+import HomeThirdPage from '../pages/HomeThirdPage';
+import HomeFourPage from '../pages/HomeFourPage';
 import Tab from './HomeTabNavigator';
+import Route from './Route';
+import * as Global from './Global';
 
 
 const RootNavigator = StackNavigator(
@@ -29,7 +33,21 @@ const RootNavigator = StackNavigator(
             navigationOptions: {
                 headerTitle: 'HomeSecondePage',
             }
-        }
+        },
+        HomeThirdPage: {
+            screen: HomeThirdPage,
+            headerMode: 'none',
+            navigationOptions: {
+                headerTitle: 'HomeThirdPage',
+            }
+        },
+        HomeFourPage: {
+            screen: HomeFourPage,
+            headerMode: 'none',
+            navigationOptions: {
+                headerTitle: 'HomeFourPage',
+            }
+        },
     }, {
         mode: 'card',//card默认，modal ios从底部弹出页面，android无效
         headerMode: 'float',//float默认 header先出现，screen header随screen一起出现
@@ -38,12 +56,20 @@ const RootNavigator = StackNavigator(
         }),
     }
 );
-
+const defaultGetStateAction = RootNavigator.router.getStateForAction;
 export default class Main extends React.Component {
+    constructor(props){
+        super(props);
+        RootNavigator.router.getStateForAction = (action, state) => {
+            state && action.type;//这里可以监听页面跳转时的state 和 action
+            state && (Route.routes = state.routes);
+            return defaultGetStateAction(action, state);
+        };
+    }
     //this prop will get passed to the screen components as this.props.screenProps
     render() {
         return (
-            <RootNavigator screenProps={{p: "来之不易"}}/>
+            <RootNavigator screenProps={{fromRootApp: "全局传递的属性"}}/>
         )
     }
 }
