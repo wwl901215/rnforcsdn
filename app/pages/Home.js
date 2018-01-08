@@ -19,6 +19,7 @@ import {
     Button,
 } from 'react-native';
 import BasePage from '../base/BasePage';
+import * as Navigator from '../scens/Navigator';
 
 export default class Home extends BasePage {
     static navigationOptions = {
@@ -34,7 +35,8 @@ export default class Home extends BasePage {
             <View style={styles.container}>
                 <Text>Home Page</Text>
                 <Button title="go to homesecondepage" onPress={()=>{
-                    this.props.navigation.navigate('HomeSecondePage',{paramM:"来自首页的问候"});
+                    // this.props.navigation.navigate('HomeSecondePage',{paramM:"来自首页的问候"});
+                    Navigator.jump(this.props,'HomeSecondePage',{paramM:"来自首页的问候"});
                 }}/>
                 <Button title="打开侧滑菜单a" onPress={()=>{
                     this.props.navigation.navigate('DrawerOpen')

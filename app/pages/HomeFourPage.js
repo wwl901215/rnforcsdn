@@ -18,53 +18,23 @@ import {
     Button,
 } from 'react-native';
 import BasePage from '../base/BasePage';
-import Route from '../scens/Route';
+import * as Navigator from '../scens/Navigator';
 
 export default class HomeFourPage extends BasePage {
-    static navigationOptions = {
+    static navigationOptions = {};
 
-    };
-    constructor(props){
+    constructor(props) {
         super(props);
     }
-    render(){
-        return(
+
+    render() {
+        return (
             <View style={styles.container}>
-                <Button title="返回首页" onPress={()=>{
-                    console.log(JSON.stringify(Route.routes))
-                    if (Route.routes.length > 1){
-                        this.props.navigation.goBack(String(Route.routes[1].key));
-                    }else {
-                        this.props.navigation.goBack()
-                    }
+                <Button title="返回首页" onPress={() => {
+                    Navigator.backToHome(this.props);
                 }}/>
-                <Button title="返回HomeSecondePage" onPress={()=>{
-                    console.log(JSON.stringify(Route.routes))
-                    if (Route.routes.length > 1){
-                        let routeName = "HomeSecondePage";
-                        let arr = Route.routes;
-                        let a = (arr,index)=>{
-                            arr.slice(index+1).map((item2,index2)=>{
-                                if (item2.routeName === routeName) return true;
-                            })
-                            return false;
-                        }
-                        let fun = (arr)=>{
-                            arr.map((item,index) => {
-                                if (item.routeName === routeName){
-                                    if (a(arr,index)){
-                                        fun(arr.slice(index + 1))
-                                    }else {
-                                        return item.key;
-                                    }
-                                }
-                            })
-                            return null;
-                        }
-                        this.props.navigation.goBack(String(fun(arr)));
-                    }else {
-                        this.props.navigation.goBack()
-                    }
+                <Button title="返回HomeSecondePage" onPress={() => {
+                    Navigator.popTo(this.props, "HomeSecondePage");
                 }}/>
                 <Text>HomeFourPage</Text>
             </View>
@@ -72,9 +42,9 @@ export default class HomeFourPage extends BasePage {
     }
 }
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });

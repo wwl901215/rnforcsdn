@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import {NavigationActions} from 'react-navigation';
-
+import * as Navigator from '../scens/Navigator';
 export default class HomeSecondePage extends BasePage {
     static navigationOptions = {};
 
@@ -34,7 +34,8 @@ export default class HomeSecondePage extends BasePage {
 
     componentDidMount() {
         setTimeout(()=>{
-            this.props.navigation.setParams({paramM:"改个属性这么麻烦。。。。"});
+            // this.props.navigation.setParams({paramM:"改个属性这么麻烦。。。。"});
+            Navigator.refresh(this.props,{paramM:"改个属性这么麻烦。。。。"});
         },3000);
     }
 
@@ -65,19 +66,29 @@ export default class HomeSecondePage extends BasePage {
                 <Button style={{marginBottom: 50}}
                         title={"go to third homepage"}
                         onPress={() => {
-                            const action = NavigationActions.navigate({
-                                routeName: 'HomeThirdPage',
-                                params: {paramM: '来自seconde home的问候'},
-                                action: NavigationActions.navigate({routeName:'HomeFourPage'})
-                            })
-                            navigation.dispatch(action);
+                            // const action = NavigationActions.navigate({
+                            //     routeName: 'HomeThirdPage',
+                            //     params: {paramM: '来自seconde home的问候'},
+                            //     action: NavigationActions.navigate({routeName:'HomeFourPage'}) //这个还没有弄明白干嘛的
+                            // })
+                            // navigation.dispatch(action);
+                            Navigator.jump(this.props,'HomeThirdPage',{paramM: '来自seconde home的问候'});
                         }}>
                 </Button>
                 <Button
                     title={"go back"}
                     style={{marginBottom: 50}}
                     onPress={() => {
-                        navigation.goBack();
+                        // navigation.goBack();
+                        Navigator.pop(this.props);
+                    }}>
+                </Button>
+                <Button
+                    title={"reset"}
+                    style={{marginBottom: 50}}
+                    onPress={() => {
+                        // navigation.goBack();
+                        Navigator.reset(this.props);
                     }}>
                 </Button>
                 <Text>HomeSecondePage {`\r\n`}
