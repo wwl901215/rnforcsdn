@@ -22,15 +22,24 @@ import BasePage from '../base/BasePage';
 import * as ToDoAction from '../redux/actions/ToDoAction';
 class CartPage extends BasePage {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
-    render(){
-        return(
+
+    render() {
+        return (
             <View style={styles.container}>
                 <Text>Cart Page</Text>
                 <Text>allNum:{this.props.allNum}</Text>
-                <Button title={'加1'} onPress={()=>{this.props.add(1)}}/>
+                <Button title={'加1'} onPress={() => {
+                    // this.props.add(1);
+                    this.props.asyAdd(2);
+                }}/>
+                {this.props.show ?
+                    <Text>正在加载。。。</Text>
+                    :
+                    <Text>加载完毕</Text>
+                }
             </View>
         );
     }
@@ -38,17 +47,19 @@ class CartPage extends BasePage {
 
 export default connect(
     (state) => ({
-        allNum: state.ToDoReducer.allNum
+        allNum: state.ToDoReducer.allNum,
+        show: state.ToDoReducer.show,
     }),
     (dispatch) => ({
-        add: (msg) => dispatch(ToDoAction.toDo({num:msg || 1,allNum:100})),
+        add: (msg) => dispatch(ToDoAction.toDo({num: msg || 1, allNum: 100})),
+        asyAdd: (msg) => dispatch(ToDoAction.asyncToDo({num: msg})),
     })
 )(CartPage);
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });

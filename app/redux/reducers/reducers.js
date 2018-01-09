@@ -14,13 +14,13 @@ import ToDoReducer from './ToDoReducer';
  * @param action 用户发出的action
  * @returns {{ToDoReducer: {num, allNum}}}
  */
-export default (state={},action) => {
-    return {
-        ToDoReducer: ToDoReducer(state.ToDoReducer,action),
-    }
-};
+// export default (state={},action) => {
+//     return {
+//         ToDoReducer: ToDoReducer(state.ToDoReducer,action),
+//     }
+// };
 
 //************************等同于combinReducers**********************
-// export default combineReducers({
-//     ToDoReducer,
-// })
+export default combineReducers({
+    ToDoReducer,
+})
