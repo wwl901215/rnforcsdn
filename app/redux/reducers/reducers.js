@@ -7,6 +7,7 @@
  */
 import {combineReducers} from 'redux';
 import ToDoReducer from './ToDoReducer';
+import NetReducer from './NetReducer';
 
 /**
  *
@@ -23,4 +24,5 @@ import ToDoReducer from './ToDoReducer';
 //************************等同于combinReducers**********************
 export default combineReducers({
     ToDoReducer,
+    NetReducer,
 })

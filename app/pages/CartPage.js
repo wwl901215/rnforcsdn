@@ -16,10 +16,13 @@ import {
     FlatList,
     Image,
     Button,
+    ScrollView,
+    Dimensions
 } from 'react-native';
 import {connect} from 'react-redux'
 import BasePage from '../base/BasePage';
 import * as ToDoAction from '../redux/actions/ToDoAction';
+import * as NetAction from '../redux/actions/NetAction';
 class CartPage extends BasePage {
 
     constructor(props) {
@@ -40,6 +43,13 @@ class CartPage extends BasePage {
                     :
                     <Text>加载完毕</Text>
                 }
+                <Button title={'加载图片'} onPress={() => {
+                    this.props.getGoods("15144099");
+                }}/>
+                <Text>{JSON.stringify(this.props.goodsShow)}</Text>
+                <ScrollView style={{width:300,height:200}}>
+                    <Text>{JSON.stringify(this.props.good)}</Text>
+                </ScrollView>
             </View>
         );
     }
@@ -49,10 +59,13 @@ export default connect(
     (state) => ({
         allNum: state.ToDoReducer.allNum,
         show: state.ToDoReducer.show,
+        good: state.NetReducer.data,
+        goodsShow: state.NetReducer.show,
     }),
     (dispatch) => ({
         add: (msg) => dispatch(ToDoAction.toDo({num: msg || 1, allNum: 100})),
         asyAdd: (msg) => dispatch(ToDoAction.asyncToDo({num: msg})),
+        getGoods:(msg) => dispatch(NetAction.getGoods(msg)),
     })
 )(CartPage);
 
