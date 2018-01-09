@@ -15,10 +15,12 @@ import {
     StatusBar,
     FlatList,
     Image,
+    Button,
 } from 'react-native';
+import {connect} from 'react-redux'
 import BasePage from '../base/BasePage';
-
-export default class CartPage extends BasePage {
+import * as ToDoAction from '../redux/actions/ToDoAction';
+class CartPage extends BasePage {
 
     constructor(props){
         super(props);
@@ -27,10 +29,22 @@ export default class CartPage extends BasePage {
         return(
             <View style={styles.container}>
                 <Text>Cart Page</Text>
+                <Text>allNum:{this.props.allNum}</Text>
+                <Button title={'加1'} onPress={()=>{this.props.add(1)}}/>
             </View>
         );
     }
 }
+
+export default connect(
+    (state) => ({
+        allNum: state.ToDoReducer.allNum
+    }),
+    (dispatch) => ({
+        add: (msg) => dispatch(ToDoAction.toDo({num:msg || 1,allNum:100})),
+    })
+)(CartPage);
+
 const styles = StyleSheet.create({
     container:{
         flex:1,
