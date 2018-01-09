@@ -29,7 +29,6 @@ export default class HomeSecondePage extends BasePage {
         this.state={
             param:this.props.navigation.state.params.paramM,
         }
-        console.log("home2-cons:"+JSON.stringify(this.props));
     }
 
     componentDidMount() {
@@ -44,13 +43,11 @@ export default class HomeSecondePage extends BasePage {
     }
 
     render() {
-        console.log("home2-render:"+JSON.stringify(this.props));
         let navigation = this.props.navigation;
         let state = navigation.state;
         let params = state.params;//通过navigate传递的属性都在这里面
 
         let paramM = params.paramM;
-        console.log(JSON.stringify(this.props));
         // {
         //     "screenProps": {"p": "来之不易"},
         //     "navigation": {

@@ -27,10 +27,8 @@ export default class HomeThirdPage extends BasePage {
     };
     constructor(props){
         super(props);
-        console.log("home3-cons:"+JSON.stringify(this.props));
     }
     render(){
-        console.log("home3-render:"+JSON.stringify(this.props));
         return(
             <View style={styles.container}>
                 <Button title="go to fourPage" onPress={()=>{
