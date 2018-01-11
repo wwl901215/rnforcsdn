@@ -43,7 +43,7 @@ export const asyncToDo = (status) => {
                     type: 'ADD',
                     data: status,
                 })
-            }, 5000);
+            }, 1000);
         }
     }
 }

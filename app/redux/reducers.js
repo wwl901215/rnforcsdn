@@ -6,8 +6,8 @@
  *@description
  */
 import {combineReducers} from 'redux';
-import ToDoReducer from './ToDoReducer';
-import NetReducer from './NetReducer';
+import ToDoReducer from './reducers/ToDoReducer';
+import NetReducer from './reducers/NetReducer';
 
 /**
  *

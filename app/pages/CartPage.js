@@ -34,6 +34,9 @@ class CartPage extends BasePage {
             <View style={styles.container}>
                 <Text>Cart Page</Text>
                 <Text>allNum:{this.props.allNum}</Text>
+                <Text>Num:{this.props.num}</Text>
+                <Text>c:{this.props.todo.obj.a.b.c}</Text>
+                <Text>b1:{this.props.todo.obj.a.b1}</Text>
                 <Button title={'加1'} onPress={() => {
                     // this.props.add(1);
                     this.props.asyAdd(2);
@@ -47,9 +50,12 @@ class CartPage extends BasePage {
                     this.props.getGoods("15144099");
                 }}/>
                 <Text>{JSON.stringify(this.props.goodsShow)}</Text>
-                <ScrollView style={{width:300,height:200}}>
-                    <Text>{JSON.stringify(this.props.good)}</Text>
-                </ScrollView>
+                <View style={{width:300,height:200}}>
+                    <ScrollView style={{flex:1}}>
+                        <Text>{JSON.stringify(this.props.good)}</Text>
+                    </ScrollView>
+                </View>
+
             </View>
         );
     }
@@ -57,7 +63,9 @@ class CartPage extends BasePage {
 
 export default connect(
     (state) => ({
+        todo: state.ToDoReducer,
         allNum: state.ToDoReducer.allNum,
+        num: state.ToDoReducer.num,
         show: state.ToDoReducer.show,
         good: state.NetReducer.data,
         goodsShow: state.NetReducer.show,
