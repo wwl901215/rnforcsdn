@@ -1,4 +1,0 @@
-react-native bundle --platform android --dev false --entry-file index.android.js  --bundle-output android/app/src/main/assets/index.android.bundle  --assets-dest android/app/src/main/res/
-adb reverse tcp:8081 tcp:8081
-
-1、 reactnative debugger工具：https://github.com/jhen0409/react-native-debugger
