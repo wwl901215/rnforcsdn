@@ -37,7 +37,7 @@ export default class Home extends BasePage {
     componentDidMount() {
 
         //1、fromJS(); 将JS对象和数组转换为不可变Map和List
-        let map = Immutable.fromJS({a:"map1"});
+        let map = Immutable.fromJS({a:"map1",b:"lsdks"});
         let map2 = map.set("b",3);
         map.get("a");
         let map3 = Immutable.fromJS({a:"map1"})
@@ -62,8 +62,7 @@ export default class Home extends BasePage {
 
 
         this.setState({
-            text:JSON.stringify(data.updateIn(['a','b'], c => {return{c:666}})
-                .toJS()),
+            text:JSON.stringify(map.merge({a:{b1:23}},{a:"kkk"}).toJS()),
         })
 
         //4、批量修改

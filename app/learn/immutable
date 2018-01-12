@@ -1,0 +1,52 @@
+npm install immutable
+import * as Immutable from 'immutable';
+import Cursor from 'immutable/contrib/cursor';
+
+        //1、fromJS(); 将JS对象和数组转换为不可变Map和List
+        let map = Immutable.fromJS({a:"map1"});
+        let map2 = map.set("b",3);
+        map.get("a");
+        let map3 = Immutable.fromJS({a:"map1"})
+
+        let list = Immutable.fromJS([1,2,3,4]);
+        let list2 = list.push(5);
+        let list3 = list.pop();
+        list.get(1);
+
+        //2、is() 比较两个Immutable是否一样
+        Immutable.is(map,map3);
+
+        //3、Cursor提供了可以直接访问深层数据
+        let data = Immutable.fromJS({a:{b:{c:6}}});
+        let cur = Cursor.from(data,["a","b"],newData => {
+            //当cur或其子 cur执行update时调用,newData是data的最新数据
+            this.setState({
+                text:String(newData.get('a')),
+            })
+        });
+        cur.get('c');//6
+        cur = cur.update('c', x => x+1);
+        cur.get('c');//7
+
+        //4、批量修改
+        //由于每一次修改都会生成一个新的immutable对象有一定的性能损耗，可以使用withMutations方法，使批量修复在临时集合拷贝上发生
+        // 只有特殊的几个方法能使用 withMutation 其中包括 set, push 和 pop
+
+        //5、isImmutable() 判断是否为Immutable对象
+        console.log('---> isImmutable([]) ' + isImmutable([]));
+        console.log('---> isImmutable({}) ' + isImmutable({}));
+        console.log('---> isImmutable(Map()) ' + isImmutable(Map()));
+        console.log('---> isImmutable(List()) ' + isImmutable(List()));
+
+        //6、toJS() 可以将Immutable对象重新转化为js对象
+
+        7、Map List 和 fromJS的区别：Map和List只是把js对象的最外层改变成Immutable对象，而fromJS是把整个js对象全部转化为Immutable对象，fromJS比较耗性能，但是处理起来比较方便，不然使用updateIn会出问题
+
+
+//结果
+        ---> isImmutable([]) false
+        ---> isImmutable({}) false
+        ---> isImmutable(Map()) true
+        ---> isImmutable(List()) true
+
+        8、merge  map.merge({a:{b1:23}},{a:"kkk"})
