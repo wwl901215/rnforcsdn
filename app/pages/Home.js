@@ -17,12 +17,14 @@ import {
     FlatList,
     Image,
     Button,
+    CameraRoll
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import * as Navigator from '../scens/Navigator';
 import * as Immutable from 'immutable';
 import Cursor from 'immutable/contrib/cursor';
 import * as HomeClassDecotator from '../decorators/HomeClassDecotator';
+import ImageShow from './imagepicker/ImageShow';
 
 @HomeClassDecotator.HomeClass
 export default class Home extends BasePage {
@@ -33,6 +35,8 @@ export default class Home extends BasePage {
         super(props);
         this.state={
             text:"",
+            url:"",
+            show:false,
         }
         console.log("home constructor");
     }
@@ -43,6 +47,7 @@ export default class Home extends BasePage {
         })
         console.log("home didmount");
     }
+
 
     @HomeClassDecotator.HomeFunCountStars
     countStars(num){
@@ -68,7 +73,14 @@ export default class Home extends BasePage {
                     // this.say("测试decotator");
                     this.countStars(100);
                 }}/>
+                <Button title="获取手机本地图片" onPress={()=>{
+                    this.setState({show:true});
+                }}/>
                 <Text>{this.state.text}</Text>
+                <Image style={{height:200,width:200}} resizeMode={"contain"} source={{uri:this.state.url}}/>
+                <ImageShow show={this.state.show} getImages={(imageUrl) => {
+                    this.setState({url:imageUrl});
+                }}/>
             </View>
         );
     }
