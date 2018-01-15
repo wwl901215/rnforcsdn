@@ -1,0 +1,11 @@
+let store = createStore(reducers,applyMiddleware(thunk));//reducer就是一个fun返回一个state对象，这个state对象是整个应用所用到的对象，connect会把这个对象绑定到具体的子组件里面
+
+//************************store的介绍**********************
+let {getState,dispatch,subscribe} = store;
+
+let unsubscribe = subscribe(()=>{
+    console.log("这里可以监听全局的state:"+JSON.stringify(getState()));
+});
+setTimeout(()=>{
+    unsubscribe();//调用该方法就可以解除监听
+},5000);
