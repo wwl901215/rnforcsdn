@@ -17,7 +17,8 @@ import {
     FlatList,
     Image,
     Button,
-    CameraRoll
+    CameraRoll,
+    Linking
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import * as Navigator from '../scens/Navigator';
@@ -72,6 +73,9 @@ export default class Home extends BasePage {
                 <Button title="测试" onPress={()=>{
                     // this.say("测试decotator");
                     this.countStars(100);
+                }}/>
+                <Button title="打开相机" onPress={()=>{
+                    Linking.openURL("http://www.baidu.com");
                 }}/>
                 <Button title="获取手机本地图片" onPress={()=>{
                     this.setState({show:true});

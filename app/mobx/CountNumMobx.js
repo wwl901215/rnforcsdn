@@ -30,7 +30,8 @@ class CountNumMobx {
         return this.timer * 2
     }
 
-    set setValue(value) { //不知道为什么这个不管用，需要关注
+    @action
+    setValue(value) {
         this.timer = value;
     }
 

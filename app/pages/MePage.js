@@ -53,7 +53,8 @@ export default class MePage extends BasePage {
                         <Text style={{color: '#000',paddingRight:20}}>重置</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
-                        alert(CountNumMobx.count);
+                        // alert(CountNumMobx.count);
+                        CountNumMobx.setValue(666);
                     }}>
                         <Text style={{color: '#000',paddingRight:20}}>count*2</Text>
                     </TouchableOpacity>
