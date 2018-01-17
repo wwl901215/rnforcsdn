@@ -8,6 +8,7 @@ import HomeSecondePage from '../pages/HomeSecondePage';
 import HomeThirdPage from '../pages/HomeThirdPage';
 import HomeFourPage from '../pages/HomeFourPage';
 import Tab from './HomeTabNavigator';
+import PanTest from '../pages/PanTest';
 
 export const scensConfig = {
     Tab: {
@@ -37,6 +38,13 @@ export const scensConfig = {
             headerTitle: 'HomeFourPage',
         }
     },
+    PanTest: {
+        screen: PanTest,
+        headerMode: 'none',
+        navigationOptions: {
+            headerTitle: 'PanTest',
+        }
+    }
 };
 
 export const stackRouteConfig = {

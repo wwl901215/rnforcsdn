@@ -74,8 +74,11 @@ export default class Home extends BasePage {
                     // this.say("测试decotator");
                     this.countStars(100);
                 }}/>
-                <Button title="打开相机" onPress={()=>{
+                <Button title="打开浏览器" onPress={()=>{
                     Linking.openURL("http://www.baidu.com");
+                }}/>
+                <Button title="跳转PanTest" onPress={()=>{
+                    Navigator.jump(this.props,'PanTest');
                 }}/>
                 <Button title="获取手机本地图片" onPress={()=>{
                     this.setState({show:true});
