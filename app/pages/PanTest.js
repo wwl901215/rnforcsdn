@@ -24,6 +24,7 @@ import {
 import BasePage from '../base/BasePage';
 import * as Navigator from '../scens/Navigator';
 import PanCommont from '../commont/pan/PanCommont';
+import AnimTest from '../commont/anim/AnimTest';
 
 export default class PanTest extends BasePage {
 
@@ -50,6 +51,7 @@ export default class PanTest extends BasePage {
                         );
                     }}
                     data={[{name: "小明", age: 1}, {name: "小王", age: 2}, {name: "小刘", age: 3}, {name: "小赵", age: 4}]}/>
+                <AnimTest/>
             </View>
         );
     }
@@ -58,6 +60,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent:'center',
-        alignItems:'center',
+        // alignItems:'center',
     }
 });
