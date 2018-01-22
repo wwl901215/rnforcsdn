@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用来测试node服务</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        function getImg() {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    alert("jejlskd");
+                }else
+                {
+                    alert(JSON.stringify(xmlhttp));
+                }
+            }
+            xmlhttp.open("GET","https://m1.ocj.com.cn:443/api/items/items/appdetail/15210124",true);
+            xmlhttp.send();
+        }
+
+    </script>
+</head>
+<body>
+    <h3>这里是文章标题</h3>
+    <p>欢迎来到node.js</p>
+    <button type="button" id="button1" onclick="getImg()">获取图片a</button>
+    <img src="http://img5.imgtn.bdimg.com/it/u=1639041640,1507875067&fm=27&gp=0.jpg" style="width: auto; height: auto"/>
+</body>
+</html>
