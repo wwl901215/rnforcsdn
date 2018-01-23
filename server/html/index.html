@@ -30,11 +30,37 @@
         }
 
     </script>
+    <script>
+        var myVideo = document.getElementById("firstVideo");
+        function pause() {
+            if (myVideo.paused){
+                myVideo.play();
+            }
+
+        }
+    </script>
 </head>
 <body>
-    <h3>这里是文章标题</h3>
-    <p>欢迎来到node.js</p>
+    <h3 align="center">这里是文章标题</h3>
+    <p style="background-color: #fffff9;padding-left: 30px">欢迎来到node.js</p>
     <button type="button" id="button1" onclick="getImg()">获取图片a</button>
-    <img src="http://img5.imgtn.bdimg.com/it/u=1639041640,1507875067&fm=27&gp=0.jpg" style="width: auto; height: auto"/>
+    <hr/>
+    <div align="center">
+        <img src="http://img5.imgtn.bdimg.com/it/u=1639041640,1507875067&fm=27&gp=0.jpg" style="width: 50%; height: 200px; border-radius: 10px"/>
+    </div>
+    <hr/>
+    <p>这里<br />使用了<br />折行符号</p>
+    <form>
+        First name:<input type="text" name="firstname" placeholder="请填写名字"/><br/>
+        Age:<input style="margin-left: 20px" type="number" name="lastname" placeholder="请填写年龄"/>
+    </form>
+    <article>
+        <h1>Internet Explorer 9</h1>
+        <p>Windows Internet Explorer 9（简称 IE9）于 2011 年 3 月 14 日发布.....</p>
+    </article>
+    <video id="firstVideo" loop="loop" preload="preload" width="320px" height="240px" controls="controls">
+        <source src="http://www.w3school.com.cn/example/html5/mov_bbb.mp4" type="video/mp4"/>
+        <source src="http://www.w3school.com.cn/example/html5/mov_bbb.ogg" type="video/ogg"/>
+    </video>
 </body>
 </html>
