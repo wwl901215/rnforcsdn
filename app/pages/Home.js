@@ -18,7 +18,8 @@ import {
     Image,
     Button,
     CameraRoll,
-    Linking
+    Linking,
+    DeviceEventEmitter
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import * as Navigator from '../scens/Navigator';
@@ -26,6 +27,7 @@ import * as Immutable from 'immutable';
 import Cursor from 'immutable/contrib/cursor';
 import * as HomeClassDecotator from '../decorators/HomeClassDecotator';
 import ImageShow from './imagepicker/ImageShow';
+import RNConnect from '../bridge/RNConnect';
 
 @HomeClassDecotator.HomeClass
 export default class Home extends BasePage {
@@ -47,6 +49,10 @@ export default class Home extends BasePage {
             text:"",
         })
         console.log("home didmount");
+        DeviceEventEmitter.addListener('sendMsgToRN', (event) => {//这里可以用来集中处理从native传过来的通知；
+            console.log(JSON.stringify(event));
+        });
+
     }
 
 
@@ -73,6 +79,17 @@ export default class Home extends BasePage {
                 <Button title="测试" onPress={()=>{
                     // this.say("测试decotator");
                     this.countStars(100);
+                }}/>
+                <Button title="打开原生页面并回调" onPress={()=>{
+                    RNConnect.pushs({page:"Home",name:"ixaoming"},(event) => {
+                        alert(JSON.stringify(event));
+                        console.log("aaaaa" + JSON.stringify(event));
+                    });
+                }}/>
+                <Button title="直接调用java代码" onPress={()=>{
+                    RNConnect.getLocationFromAndroid((msg) => {
+                       alert(msg);
+                    });
                 }}/>
                 <Button title="打开浏览器" onPress={()=>{
                     Linking.openURL("http://www.baidu.com");
