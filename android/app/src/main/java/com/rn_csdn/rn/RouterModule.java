@@ -59,6 +59,11 @@ public class RouterModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void showJSView() {
+        getCurrentActivity().sendBroadcast(new Intent("com.can.showJSView"));
+    }
+
+    @ReactMethod
     public void startAndroidActivity(String data, Promise callback) {//这里的promise是异步回调，不是什么时候，只要callback还没有被销毁就可以通过callback.resolve()和.reject()回调js;
         this.callback = callback;
         try {

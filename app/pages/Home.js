@@ -19,7 +19,8 @@ import {
     Button,
     CameraRoll,
     Linking,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Platform
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import * as Navigator from '../scens/Navigator';
@@ -28,6 +29,7 @@ import Cursor from 'immutable/contrib/cursor';
 import * as HomeClassDecotator from '../decorators/HomeClassDecotator';
 import ImageShow from './imagepicker/ImageShow';
 import RNConnect from '../bridge/RNConnect';
+import {AndroidRouterModule} from '../bridge/AndroidModules';
 
 @HomeClassDecotator.HomeClass
 export default class Home extends BasePage {
@@ -52,6 +54,10 @@ export default class Home extends BasePage {
         DeviceEventEmitter.addListener('sendMsgToRN', (event) => {//这里可以用来集中处理从native传过来的通知；
             console.log(JSON.stringify(event));
         });
+
+        if (Platform.OS === 'android') {
+            AndroidRouterModule.showJSView();
+        }
 
     }
 
