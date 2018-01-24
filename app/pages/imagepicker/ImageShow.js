@@ -84,7 +84,7 @@ export default class ImageShow extends BasePage {
 
     render() {
         return (
-            <Modal visible={this.state.show} transparent={false}>
+            <Modal onRequestClose={() => {}} equestclose={() => {}} visible={this.state.show} transparent={false}>
                 <Button title={"关闭"} style={{width:30,height:30}} onPress={() => this._close()}/>
                 <View style={styles.container}>
                     <FlatList

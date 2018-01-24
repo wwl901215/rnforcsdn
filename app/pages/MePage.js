@@ -15,11 +15,13 @@ import {
     StatusBar,
     FlatList,
     Image,
+    Button
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import CountNumMobx from '../mobx/CountNumMobx';
 import {observer} from 'mobx-react';
 import {observable, action} from 'mobx';
+import * as Navigator from '../scens/Navigator';
 
 @observer
 export default class MePage extends BasePage {
@@ -59,6 +61,9 @@ export default class MePage extends BasePage {
                         <Text style={{color: '#000',paddingRight:20}}>count*2</Text>
                     </TouchableOpacity>
                 </View>
+                <Button style={{marginTop:20}} title={"跳转到webviewpage"} onPress={() => {
+                    Navigator.jump(this.props,'WebViewPage');
+                }}/>
             </View>
         );
     }

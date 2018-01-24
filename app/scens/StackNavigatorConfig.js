@@ -9,6 +9,7 @@ import HomeThirdPage from '../pages/HomeThirdPage';
 import HomeFourPage from '../pages/HomeFourPage';
 import Tab from './HomeTabNavigator';
 import PanTest from '../pages/PanTest';
+import WebViewPage from '../pages/WebViewPage';
 
 export const scensConfig = {
     Tab: {
@@ -43,6 +44,13 @@ export const scensConfig = {
         headerMode: 'none',
         navigationOptions: {
             headerTitle: 'PanTest',
+        }
+    },
+    WebViewPage: {
+        screen: WebViewPage,
+        headerMode: 'none',
+        navigationOptions: {
+            headerTitle: 'WebViewPage',
         }
     }
 };

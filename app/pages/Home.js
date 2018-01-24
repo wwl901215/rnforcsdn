@@ -40,7 +40,7 @@ export default class Home extends BasePage {
         super(props);
         this.state={
             text:"",
-            url:"",
+            url:"suhei",
             show:false,
         }
         console.log("home constructor");
