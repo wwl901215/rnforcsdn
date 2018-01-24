@@ -1,39 +1,43 @@
 package com.rn_csdn;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.view.View;
 
-import com.facebook.react.ReactActivity;
-//http://blog.csdn.net/vv_bug/article/details/78061746  不知道怎么回事，按照这个方法执行之后反而效果不好了
-public class MainActivity extends ReactActivity {
+import com.rn_csdn.rn.ReactActivity2;
+
+//http://blog.csdn.net/vv_bug/article/details/78061746
+public class MainActivity extends ReactActivity2 {
     private View  mRootView;
     private BroadcastReceiver mReceiver;
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        mRootView = getRootView();
-//        setContentView(mRootView);
-//        mRootView.setVisibility(View.INVISIBLE);
-////        new Handler().postDelayed(new Runnable() {//模拟jsbundle加载过程
-////            @Override
-////            public void run() {
-////                getWindow().setBackgroundDrawableResource(android.R.drawable.screen_background_light);
-////                mRootView.setVisibility(View.VISIBLE);
-////            }
-////        }, 3000);
-//
-//        if (mReceiver != null){
-//            unregisterReceiver(mReceiver);
-//        }
-//        registerReceiver(mReceiver = new BroadcastReceiver() {//等js第一个页面加载完成后通知显示rootview；
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRootView = getRootView();
+        setContentView(mRootView);
+        mRootView.setVisibility(View.INVISIBLE);
+//        new Handler().postDelayed(new Runnable() {//模拟jsbundle加载过程
 //            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                mRootView.setVisibility(View.VISIBLE);
+//            public void run() {
 //                getWindow().setBackgroundDrawableResource(android.R.drawable.screen_background_light);
+//                mRootView.setVisibility(View.VISIBLE);
 //            }
-//        },new IntentFilter("com.can.showJSView"));
-//    }
+//        }, 3000);
+
+        if (mReceiver != null){
+            unregisterReceiver(mReceiver);
+        }
+        registerReceiver(mReceiver = new BroadcastReceiver() {//等js第一个页面加载完成后通知显示rootview；
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mRootView.setVisibility(View.VISIBLE);
+            }
+        },new IntentFilter("com.can.showJSView"));
+    }
 
     /**
      * Returns the name of the main component registered from JavaScript.
