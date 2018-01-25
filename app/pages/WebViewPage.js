@@ -41,7 +41,9 @@ export default class WebViewPage extends BasePage {
                 ) : (
                     <View style={{flex:1,marginTop:10}}>
                         <Slider style={{width: width}} value={this.state.value}/>
-                        <CusWebView style={{flex:1,width:width}} source={{uri: "http://www.baidu.com/"}}/>
+                        <CusWebView onProgress={(data) => {
+                            this.setState({value:Number(data)/100});
+                        }} style={{flex:1,width:width}} source={{uri: "http://www.baidu.com/"}}/>
                     </View>
                 )}
 

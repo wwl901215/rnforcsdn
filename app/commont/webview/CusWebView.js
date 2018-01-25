@@ -324,6 +324,9 @@ class CusWebView extends React.Component {
                 mixedContentMode={this.props.mixedContentMode}
                 saveFormDataDisabled={this.props.saveFormDataDisabled}
                 urlPrefixesForDefaultIntent={this.props.urlPrefixesForDefaultIntent}
+                onProgress={(event) => {
+                    this.props.onProgress && this.props.onProgress(event.nativeEvent.progress);
+                }}
                 {...nativeConfig.props}
             />;
 
