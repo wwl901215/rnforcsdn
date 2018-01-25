@@ -11,7 +11,7 @@ import com.rn_csdn.rn.ReactActivity2;
 
 //http://blog.csdn.net/vv_bug/article/details/78061746
 public class MainActivity extends ReactActivity2 {
-    private View  mRootView;
+    private View mRootView;
     private BroadcastReceiver mReceiver;
 
     @Override
@@ -28,15 +28,16 @@ public class MainActivity extends ReactActivity2 {
 //            }
 //        }, 3000);
 
-        if (mReceiver != null){
+        if (mReceiver != null) {
             unregisterReceiver(mReceiver);
         }
         registerReceiver(mReceiver = new BroadcastReceiver() {//等js第一个页面加载完成后通知显示rootview；
             @Override
             public void onReceive(Context context, Intent intent) {
                 mRootView.setVisibility(View.VISIBLE);
+                getWindow().setBackgroundDrawableResource(android.R.drawable.screen_background_light);
             }
-        },new IntentFilter("com.can.showJSView"));
+        }, new IntentFilter("com.can.showJSView"));
     }
 
     /**
