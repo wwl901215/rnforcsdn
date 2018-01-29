@@ -16,6 +16,7 @@ import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
@@ -398,6 +399,11 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
     }
 
     return webView;
+  }
+
+  @ReactProp(name= "rnToNativeMessage")
+  public void rnToNativeMessage(WebView view, String message) {
+    Log.e("------",message);
   }
 
   @ReactProp(name = "javaScriptEnabled")

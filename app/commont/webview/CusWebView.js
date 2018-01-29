@@ -61,6 +61,7 @@ class CusWebView extends React.Component {
 
     static propTypes = {
         ...ViewPropTypes,
+        rnToNativeMessage: PropTypes.string,
         renderError: PropTypes.func,
         renderLoading: PropTypes.func,
         onLoad: PropTypes.func,
@@ -327,6 +328,7 @@ class CusWebView extends React.Component {
                 onProgress={(event) => {
                     this.props.onProgress && this.props.onProgress(event.nativeEvent.progress);
                 }}
+                rnToNativeMessage={this.props.rnToNativeMessage}//rnwebview向原生webview传递信息的方法
                 {...nativeConfig.props}
             />;
 

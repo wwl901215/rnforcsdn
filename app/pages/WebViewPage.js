@@ -19,9 +19,11 @@ import {
     Dimensions,
     Platform,
     Slider,
+    Button,
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import CusWebView from '../commont/webview/CusWebView';
+import * as Navigator from '../scens/Navigator';
 
 const {width, height} = Dimensions.get("window");
 export default class WebViewPage extends BasePage {
@@ -29,7 +31,7 @@ export default class WebViewPage extends BasePage {
     constructor(props) {
         super(props);
         this.state = {
-            value:0,
+            value: 0,
         }
     }
 
@@ -39,11 +41,16 @@ export default class WebViewPage extends BasePage {
                 {Platform.OS === 'ios' ? (
                     <WebView style={{flex: 1, width: width}} source={{uri: "http://www.baidu.com/"}}/>
                 ) : (
-                    <View style={{flex:1,marginTop:10}}>
+                    <View style={{flex: 1, marginTop: 10}}>
+                        <Button title="跳转到下一个webview" onPress={() => {
+                            Navigator.jump(this.props,'WebViewPage');
+                        }}/>
                         <Slider style={{width: width}} value={this.state.value}/>
-                        <CusWebView onProgress={(data) => {
-                            this.setState({value:Number(data)/100});
-                        }} style={{flex:1,width:width}} source={{uri: "http://www.baidu.com/"}}/>
+                        <CusWebView
+                            rnToNativeMessage={"来自rn的数据"}
+                            onProgress={(data) => {
+                            this.setState({value: Number(data) / 100});
+                        }} style={{flex: 1, width: width}} source={{uri: "http://www.baidu.com/"}}/>
                     </View>
                 )}
 
