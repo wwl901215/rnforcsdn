@@ -22,6 +22,7 @@ import CountNumMobx from '../mobx/CountNumMobx';
 import {observer} from 'mobx-react';
 import {observable, action} from 'mobx';
 import * as Navigator from '../scens/Navigator';
+import CusVideoPlayer from '../commont/video/CusVideoPlayer';
 
 @observer
 export default class MePage extends BasePage {
@@ -64,6 +65,13 @@ export default class MePage extends BasePage {
                 <Button style={{marginTop:20}} title={"跳转到webviewpage"} onPress={() => {
                     Navigator.jump(this.props,'WebViewPage');
                 }}/>
+
+                <CusVideoPlayer
+                    style={{width:200,height:200}}
+                    ref={(video) => {this.video = video}}
+                />
+                <Button title="开始" onPress={() => {this.video.onStart()}}/>
+                <Button title="暂停" onPress={() => {this.video.onPause()}}/>
             </View>
         );
     }

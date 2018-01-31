@@ -8,7 +8,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.rn_csdn.rn.AndroidModulePackge;
-import com.rn_csdn.rn.ReactWebViewPackage;
+import com.rn_csdn.rn.video.ReactVideoPackage;
+import com.rn_csdn.rn.webview.ReactWebViewPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new AndroidModulePackge(),
-          new ReactWebViewPackage()
+          new ReactWebViewPackage(),
+          new ReactVideoPackage()
       );
     }
 
