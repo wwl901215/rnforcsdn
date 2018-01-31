@@ -31,6 +31,9 @@ export default class MePage extends BasePage {
 
     constructor(props){
         super(props);
+        this.state={
+            showVideo:false,
+        }
     }
     render(){
         return(
@@ -66,12 +69,16 @@ export default class MePage extends BasePage {
                     Navigator.jump(this.props,'WebViewPage');
                 }}/>
 
-                <CusVideoPlayer
-                    style={{width:200,height:200}}
-                    ref={(video) => {this.video = video}}
-                />
-                <Button title="开始" onPress={() => {this.video.onStart()}}/>
-                <Button title="暂停" onPress={() => {this.video.onPause()}}/>
+                <View style={{width:200,height:200}}>
+                    {this.state.showVideo ?
+                        <CusVideoPlayer
+                            style={{width:200,height:200}}
+                            ref={(video) => {this.video = video}}
+                        />
+                        : null}
+                </View>
+                <Button title="开始" onPress={() => {this.setState({showVideo:true},() => {this.video.onStart()})}}/>
+                <Button title="暂停" onPress={() => {this.video && this.video.onPause()}}/>
             </View>
         );
     }
