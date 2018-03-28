@@ -103,6 +103,9 @@ export default class Home extends BasePage {
                 <Button title="跳转PanTest" onPress={()=>{
                     Navigator.jump(this.props,'PanTest');
                 }}/>
+                <Button title="跳转ScrollPage" onPress={()=>{
+                    Navigator.jump(this.props,'ScrollPage');
+                }}/>
                 <Button title="获取手机本地图片" onPress={()=>{
                     this.setState({show:true});
                 }}/>

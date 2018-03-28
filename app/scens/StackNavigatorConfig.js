@@ -10,6 +10,7 @@ import HomeFourPage from '../pages/HomeFourPage';
 import Tab from './HomeTabNavigator';
 import PanTest from '../pages/PanTest';
 import WebViewPage from '../pages/WebViewPage';
+import ScrollPage from '../pages/ScrollPage';
 
 export const scensConfig = {
     Tab: {
@@ -52,7 +53,14 @@ export const scensConfig = {
         navigationOptions: {
             headerTitle: 'WebViewPage',
         }
-    }
+    },
+    ScrollPage: {
+        screen: ScrollPage,
+        headerMode: 'none',
+        navigationOptions: {
+            headerTitle: 'ScrollPage',
+        }
+    },
 };
 
 export const stackRouteConfig = {
