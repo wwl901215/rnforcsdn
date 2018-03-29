@@ -20,60 +20,176 @@ import {
 } from 'react-native';
 import BasePage from '../base/BasePage';
 const SCREEN_W = Dimensions.get('window').width;
-const SCREEN_H = Dimensions.get('window').height - (Platform.OS === 'android' ? StatusBar.currentHeight : 0);
-
+const SCREEN_H = Dimensions.get('window').height - (Platform.OS === 'android' ? StatusBar.currentHeight : 80);
 export default class ScrollPage extends BasePage {
     constructor(props) {
         super(props);
-    }
-
-    componentWillMount(){
         this._panResponder = PanResponder.create({
             onMoveShouldSetPanResponderCapture: this._handleMoveShouldSetPanResponderCapture.bind(this),
-            onStartShouldSetResponderCapture:() => {return true},
+            onStartShouldSetResponderCapture: () => {
+                return true
+            },
             onPanResponderMove: this._handlePanResponderMove.bind(this),
             onPanResponderRelease: this._handlePanResponderEnd.bind(this),
-            onPanResponderGrant:this._handlePanGrant.bind(this),
-            onPanResponderTerminate:()=>{
-
-            },
-            onShouldBlockNativeResponder: (event, gestureState) => false,//表示是否用 Native 平台的事件处理，默认是禁用的，全部使用 JS 中的事件处理，注意此函数目前只能在 Android 平台上使用
         });
-        this._aniBack = 0;
+        this._panResponder2 = PanResponder.create({
+            onMoveShouldSetPanResponderCapture: this._handleMoveShouldSetPanResponderCapture2.bind(this),
+            onStartShouldSetResponderCapture: () => {
+                return true
+            },
+            onPanResponderMove: this._handlePanResponderMove2.bind(this),
+            onPanResponderRelease: this._handlePanResponderEnd2.bind(this),
+        });
+        this._aniBack = new Animated.Value(0);
+        this._reachEnd1 = false;
+        this._reachTop2 = true;
     }
-    _handlePanGrant(event: Object, gestureState: Object,){
 
-    }
     _handleMoveShouldSetPanResponderCapture(event: Object, gestureState: Object,): boolean {
-        return true;
+        return this._reachEnd1 && gestureState.dy < 0;
     }
+
     _handlePanResponderMove(event: Object, gestureState: Object): void {
-
-        console.log("aniBack:"+this._aniBack);
+        if (gestureState.dy < 0 && this._aniBack) {
+            this.topScreen.setNativeProps({
+                marginTop: gestureState.dy,
+            });
+        }
     }
-    _handlePanResponderEnd(event: Object, gestureState: Object): void {
 
+    _handlePanResponderEnd(event: Object, gestureState: Object): void {
+        if (this._reachEnd1) {//如果到达底部
+            if (gestureState.dy < 0) {
+                Animated.timing(this._aniBack, {
+                    toValue: 1,
+                    duration: 500,
+                }).start();
+            } else {
+                this._reachEnd1 = false;
+            }
+        }
+
+        this.topScreen.setNativeProps({
+            marginTop: 0,
+        });
+    }
+
+
+    _handleMoveShouldSetPanResponderCapture2(event: Object, gestureState: Object,): boolean {
+        console.log("MoveCapture:" + JSON.stringify(gestureState));
+        return this._reachTop2 && gestureState.dy > 0;
+    }
+
+    _handlePanResponderMove2(event: Object, gestureState: Object): void {
+        console.log("move---:" + gestureState.dy);
+        if (gestureState.dy > 0 && this._reachTop2) {
+            this.bottomScreen.setNativeProps({
+                marginTop: -50 + gestureState.dy,
+            });
+        }
+    }
+
+    _handlePanResponderEnd2(event: Object, gestureState: Object): void {
+        console.log("RespondeEnd:" + JSON.stringify(gestureState));
+        if (this._reachTop2) {
+            if (gestureState.dy > 0) {
+                Animated.timing(this._aniBack, {
+                    toValue: 0,
+                    duration: 500,
+                }).start();
+            } else {
+                // this._reachTop2 = false;
+            }
+        }
+        this.bottomScreen.setNativeProps({
+            marginTop: -50,
+        });
     }
 
     render() {
+        console.log("render-----------")
         return (
             <View style={styles.container}>
                 <Animated.View
-                    style={[styles.topView,{
-                        transform:[
-                            {
-                                translateY: this._aniBack,
-                            }
-                        ],
+                    style={[styles._container1, {
+                        marginTop: this._aniBack.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [0, -SCREEN_H]
+                        }),
                     }]}
                     {...this._panResponder.panHandlers}
                 >
+                    <View
+                        ref={(ref) => this.topScreen = ref}
+                        style={{
+                            width: SCREEN_W, height: SCREEN_H,
+                        }}
+                    >
+
+                        <ScrollView
+                            ref={(ref) => this._scroll1 = ref}
+                            bounces={false}
+                            scrollEventThrottle={10}
+                            onScroll={this._onScroll.bind(this)}
+                            overScrollMode={'never'}
+                        >
+                            {this._getContent()}
+                            <View
+                                style={{
+                                    width: SCREEN_W,
+                                    height: 50,
+                                    backgroundColor: 'white',
+                                    alignItems: 'center',
+                                    // justifyContent: 'center',
+                                    paddingTop: 15,
+                                }}>
+                                <Text>上拉查看详情</Text>
+                            </View>
+                        </ScrollView>
+                    </View>
                 </Animated.View>
-                <View style={styles.bottomView}>
+                <View
+                    {...this._panResponder2.panHandlers}
+                    style={styles.bottomView}>
+                    <View
+                        ref={(ref) => this.bottomScreen = ref}
+                    >
+                        <View
+                            style={{
+                                width: SCREEN_W,
+                                height: 50,
+                                backgroundColor: 'white',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginTop: -50,
+                            }}>
+                            <Text>下拉查看顶部页面</Text>
+                        </View>
+                    </View>
 
                 </View>
             </View>
         );
+    }
+
+    _getContent() {
+        let contents = [];
+        for (let i = 0; i < 50; i++) {
+            contents.push(
+                <Text style={{color: '#fff', marginTop: 10}} key={'item' + i}>content-->{i}</Text>
+            );
+        }
+        return contents;
+    }
+
+    _onScroll(event) {
+        this._reachEnd1 = false;
+        let y = event.nativeEvent.contentOffset.y;
+        let height = event.nativeEvent.layoutMeasurement.height;
+        let contentHeight = event.nativeEvent.contentSize.height;
+        if (contentHeight > height && (y + height >= contentHeight)) {
+            this._reachEnd1 = true;
+        }
     }
 
 }
@@ -84,10 +200,11 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#F5FCFF',
     },
-    topView: {
+    _container1: {
         width: SCREEN_W,
         height: SCREEN_H,
         backgroundColor: 'red',
+        zIndex: 1,
     },
     bottomView: {
         width: SCREEN_W,
