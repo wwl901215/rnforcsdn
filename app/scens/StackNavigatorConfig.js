@@ -62,11 +62,16 @@ export const scensConfig = {
         }
     },
 };
-
 export const stackRouteConfig = {
     mode: 'card',//card默认，modal ios从底部弹出页面，android无效
     headerMode: 'float',//float默认 header先出现，screen header随screen一起出现
     navigationOptions: ({navigation}) => ({
         gesturesEnabled: false,//是否允许侧滑或下滑翻页
+        headerStyle: topBarStyle,
     }),
 };
+const topBarStyle = {
+    width: '100%',
+    height: 40,
+    backgroundColor: '#fffff9'
+}
