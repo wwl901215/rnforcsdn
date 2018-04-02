@@ -16,30 +16,35 @@ import {
     StatusBar,
     FlatList,
     Image,
-    Button
+    Button,
+    Dimensions,
+    ScrollView
 } from 'react-native';
 import BasePage from '../base/BasePage';
 import {NavigationActions} from 'react-navigation';
 import * as Navigator from '../scens/Navigator';
+import AndroidNativeRefresh from '../commont/RNRefreshView/AndroidNativeRefresh';
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 export default class HomeSecondePage extends BasePage {
     static navigationOptions = {};
 
     constructor(props) {
         super(props);
-        this.state={
-            param:this.props.navigation.state.params.paramM,
+        this.state = {
+            param: this.props.navigation.state.params.paramM,
         }
     }
 
     componentDidMount() {
-        setTimeout(()=>{
+        setTimeout(() => {
             // this.props.navigation.setParams({paramM:"改个属性这么麻烦。。。。"});
-            Navigator.refresh(this.props,{paramM:"改个属性这么麻烦。。。。"});
-        },3000);
+            Navigator.refresh(this.props, {paramM: "改个属性这么麻烦。。。。"});
+        }, 3000);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({param:nextProps.navigation.state.params.paramM})
+        this.setState({param: nextProps.navigation.state.params.paramM})
     }
 
     render() {
@@ -69,7 +74,7 @@ export default class HomeSecondePage extends BasePage {
                             //     action: NavigationActions.navigate({routeName:'HomeFourPage'}) //这个还没有弄明白干嘛的
                             // })
                             // navigation.dispatch(action);
-                            Navigator.jump(this.props,'HomeThirdPage',{paramM: '来自seconde home的问候'});
+                            Navigator.jump(this.props, 'HomeThirdPage', {paramM: '来自seconde home的问候'});
                         }}>
                 </Button>
                 <Button
@@ -92,8 +97,32 @@ export default class HomeSecondePage extends BasePage {
                     paramM:{this.state.param} {`\r\n`}
                     routeName:{state.routeName}{`\r\n`}
                 </Text>
+                <AndroidNativeRefresh
+                    style={{paddingTop: 30, height: 300, width: width, backgroundColor: '#999'}}
+                    onLoadMore={(event) => {
+                        alert("加载更多");
+                    }}
+                    onRefresh={(event) => {
+                        alert("刷新");
+                    }}>
+                    <ScrollView
+                    >
+                        {this._getContent()}
+                    </ScrollView>
+                </AndroidNativeRefresh>
             </View>
         );
+    }
+
+
+    _getContent() {
+        let contents = [];
+        for (let i = 0; i < 50; i++) {
+            contents.push(
+                <Text style={{color: '#fff', marginTop: 10}} key={'item' + i}>content-->{i}</Text>
+            );
+        }
+        return contents;
     }
 }
 const styles = StyleSheet.create({

@@ -42,6 +42,12 @@ public class ReactVideoManager extends SimpleViewManager<MyPlay> {
         );
     }
 
+    /**
+     * 该方法配合getCommandsMap方法实现rn想android传值，rn需要写：UIManager.dispatchViewManagerCommand方法传值
+     * @param root
+     * @param commandId
+     * @param args
+     */
     @Override
     public void receiveCommand(MyPlay root, int commandId, @Nullable ReadableArray args) {
         switch (commandId) {
