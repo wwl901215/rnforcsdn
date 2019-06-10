@@ -8,7 +8,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.rn_csdn.rn.AndroidModulePackge;
-import com.rn_csdn.rn.RNRefreshView.RNRefreshViewPackage;
 import com.rn_csdn.rn.video.ReactVideoPackage;
 import com.rn_csdn.rn.webview.ReactWebViewPackage;
 
@@ -29,8 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new MainReactPackage(),
                     new AndroidModulePackge(),
                     new ReactWebViewPackage(),
-                    new ReactVideoPackage(),
-                    new RNRefreshViewPackage()
+                    new ReactVideoPackage()
             );
         }
 

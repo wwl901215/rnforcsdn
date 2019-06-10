@@ -11,6 +11,7 @@ import Tab from './HomeTabNavigator';
 import PanTest from '../pages/PanTest';
 import WebViewPage from '../pages/WebViewPage';
 import ScrollPage from '../pages/ScrollPage';
+import NativeScrollPage from '../pages/NativeScrollPage';
 
 export const scensConfig = {
     Tab: {
@@ -61,6 +62,13 @@ export const scensConfig = {
             headerTitle: 'ScrollPage',
         }
     },
+    NativeScrollPage: {
+        screen: NativeScrollPage,
+        headerMode: 'none',
+        navigationOptions: {
+            headerTitle: 'NativeScrollPage',
+        }
+    }
 };
 export const stackRouteConfig = {
     mode: 'card',//card默认，modal ios从底部弹出页面，android无效
